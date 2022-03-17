@@ -12,6 +12,8 @@
 @endsection
 
 @section('content')
+@include('layouts._flash')
+@include('sweetalert::alert')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -45,8 +47,8 @@
                                 <td>Rp. {{number_format($data->uang,2,",",",")}}</td>
                                 <td>Rp. {{number_format($data->total,2,",",",")}}</td>
                                 <td>Rp. {{number_format($data->kembalian,2,",",",")}}</td>
-                                
-    
+
+
 
                                 <td>
                                     <form action="{{ route('transaksi.destroy', $data->id) }}" method="post">

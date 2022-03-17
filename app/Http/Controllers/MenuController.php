@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\menu;
 use Illuminate\Http\Request;
 use Alert;
+use Session;
 
 class MenuController extends Controller
 {
@@ -56,7 +57,11 @@ class MenuController extends Controller
         }
         $menu->harga = $request->harga;
         $menu->deskripsi = $request->deskripsi;
-        Alert::success('Success Menambahkan Menu', 'Cieee bisaa');
+        Alert::success('Success Menambahkan Menu');
+        Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Data saved successfully",
+        ]);
         $menu->save();
         return redirect()->route('menu.index');
 
@@ -99,7 +104,6 @@ class MenuController extends Controller
     {
         $request->validate([
             'nama_menu' => 'required',
-            'gambar_menu' => 'required|image|max:2048',
             'harga' => 'required',
             'deskripsi' => 'required',
         ]);
@@ -115,7 +119,11 @@ class MenuController extends Controller
         }
         $menu->harga = $request->harga;
         $menu->deskripsi = $request->deskripsi;
-        Alert::success('Success Mengedit Menu', 'Cieee bisaa');
+        Alert::success('Success Mengedit Menu');
+        Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Data edited successfully",
+        ]);
         $menu->save();
         return redirect()->route('menu.index');
 
@@ -130,7 +138,7 @@ class MenuController extends Controller
     public function destroy($id)
     {
         $menu = menu::findOrFail($id);
-        Alert::success('Success Menghapus Kategori', 'Cieee bisaa');
+        Alert::success('Success Menghapus Menu');
         $menu->delete();
         return redirect()->route('menu.index');
 

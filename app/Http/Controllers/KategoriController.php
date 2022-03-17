@@ -48,7 +48,11 @@ class KategoriController extends Controller
         $kategori = new Kategori;
 //DB            CREATE
         $kategori->nama_kategori = $request->nama_kategori;
-        Alert::success('Success Menambahkan Kategori', 'Cieee bisaa');
+        Alert::success('Success Menambahkan Kategori');
+        Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Data saved successfully",
+        ]);
         $kategori->save();
 
 
@@ -96,8 +100,12 @@ class KategoriController extends Controller
         $kategori = Kategori::findOrFail($id);
         $kategori->nama_kategori = $request->nama_kategori;
 
+        Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Data edited successfully",
+        ]);
         $kategori->save();
-        Alert::success('Success Mengedit Kategori', 'Cieee bisaa');
+        Alert::success('Success Mengedit Kategori');
         return redirect()->route('kategori.index');
 
     }
@@ -111,7 +119,11 @@ class KategoriController extends Controller
     public function destroy($id)
     {
         $kategori = Kategori::findOrFail($id);
-        alert()->success('Success','Dah Di Hapus nich');
+        alert()->success('Success');
+        Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Data deleted successfully",
+        ]);
         $kategori->delete();
         return redirect()->route('kategori.index');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\karyawan;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Session;
 
 
 class KaryawanController extends Controller
@@ -43,7 +44,11 @@ class KaryawanController extends Controller
         // $karyawan->id_karyawan = $request->id_karyawan;
         $karyawan->nama_karyawan = $request->nama_karyawan;
         $karyawan->save();
-        Alert::success('Success Menambahkan Karyawan', 'Cieee bisaa');
+        Alert::success('Success Menambahkan Karyawan');
+        Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Data saved successfully",
+        ]);
         return redirect()->route('karyawan.index');
 
     }
@@ -92,7 +97,11 @@ class KaryawanController extends Controller
         // $karyawan->id_karyawan = $request->id_karyawan;
         $karyawan->nama_karyawan = $request->nama_karyawan;
         $karyawan->save();
-        Alert::success('Success Mengedit Karyawan', 'Cieee bisaa');
+        Alert::success('Success Mengedit Karyawan');
+        Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Data edited successfully",
+        ]);
         return redirect()->route('karyawan.index');
 
     }
@@ -106,8 +115,12 @@ class KaryawanController extends Controller
     public function destroy($id)
     {
         $karyawan = karyawan::findOrFail($id);
+        Session::flash("flash_notification", [
+            "level" => "success",
+            "message" => "Data deleted successfully",
+        ]);
         $karyawan->delete();
-        Alert::success('Success Menghapus Kategori', 'Cieee bisaa');
+        Alert::success('Success Menghapus Kategori');
         return redirect()->route('karyawan.index');
     }
 }
